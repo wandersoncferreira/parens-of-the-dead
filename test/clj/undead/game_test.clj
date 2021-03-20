@@ -14,8 +14,8 @@
   [face game]
   (sut/reveal-tile game (find-face-index game face)))
 
-;;; helpers
 
+;;; helpers
 
 (deftest create-game-test
   (testing "create-game provide the correct number of tiles"
