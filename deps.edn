@@ -13,6 +13,12 @@
    :extra-deps {clj-commons/pomegranate {:mvn/version "1.2.0"}
                 reloaded.repl/reloaded.repl {:mvn/version "0.2.4"}}}
 
+  :test
+  {:extra-paths ["test/clj"]
+   :extra-deps {com.cognitect/test-runner {:git/url "https://github.com/cognitect-labs/test-runner.git"
+                                           :sha "209b64504cb3bd3b99ecfec7937b358a879f55c1"}}
+   :main-opts ["-m" "cognitect.test-runner"]}
+
   :lint
   {:extra-deps {clj-kondo/clj-kondo {:mvn/version "2021.03.03"}}
    :main-opts ["-m" "clj-kondo.main" "--lint" "src" "test"]}}}

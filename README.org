@@ -1,6 +1,6 @@
 * Parens of The Dead
 
-Updated implementation of Parens of the Dead. 
+Updated implementation of Parens of the Dead.
 
 
 | original lib         | updated      | description                         |
@@ -23,3 +23,14 @@ To start the frontend from command line (development mode)
 #+begin_src shell
   npx shadow-cljs watch undead
 #+end_src
+
+
+
+** Emacs users
+
+   There is a =.dir-locals.el= file to setup the project
+   correctly. Some useful notes:
+
+   1. Use =C-c p P= to run =projectile-test-project=
+   2. =cider-jack-in-clj= in clojure files works as expected
+   3. =cider-connect-cljs= after starting the Shadow-Cljs REPL on port 8777.
