@@ -1,6 +1,7 @@
 * Parens of The Dead
 
-Updated implementation of Parens of the Dead.
+Updated implementation of [[http://www.parens-of-the-dead.com/][Parens of the Dead]]. Thanks for [[https://github.com/magnars][magnars]] to
+make this available. Great series.
 
 
 | original lib         | updated      | description                         |
