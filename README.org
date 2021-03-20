@@ -35,3 +35,4 @@ The game should be visible at =http://localhost:9009/index.html=
    1. Use =C-c p P= to run =projectile-test-project=
    2. =cider-jack-in-clj= in clojure files works as expected
    3. =cider-connect-cljs= after starting the Shadow-Cljs REPL on port 8777.
+   4. Please, please.. install [[https://github.com/magnars/.emacs.d/blob/master/site-lisp/symbol-focus.el][symbol-focus]] and be amazed on how to use it in [[http://www.parens-of-the-dead.com/e6.html][Episode 6]]
