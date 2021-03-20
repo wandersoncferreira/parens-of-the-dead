@@ -1,0 +1,25 @@
+* Parens of The Dead
+
+Updated implementation of Parens of the Dead. 
+
+
+| original lib         | updated      | description                         |
+|----------------------+--------------+-------------------------------------|
+| leiningen            | deps.edn     | Project management                  |
+| cljsbuild & figwheel | shadow-cljs  | Build and hot-reload Clojurescript  |
+| quiescent            | reagent      | Lightweight-wrapper on top of React |
+| expectations         | clojure.test | Test framework                      |
+
+
+To start the backend from command line
+
+#+begin_src shell
+  clojure -M -m undead.system
+#+end_src
+
+
+To start the frontend from command line (development mode)
+
+#+begin_src shell
+  npx shadow-cljs watch undead
+#+end_src
