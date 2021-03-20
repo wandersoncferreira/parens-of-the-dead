@@ -6,9 +6,13 @@
 (defn ->tile [face]
   {:face face})
 
+(defn create-board
+  []
+  (shuffle (map ->tile faces)))
+
 (defn create-game
   []
-  {:tiles (shuffle (map ->tile faces))
+  {:tiles (create-board)
    :sand (repeat 30 :remaining)
    :ticks 0})
 
@@ -76,7 +80,7 @@
 (defn init-concealment
   [tile]
   (if (:revealed? tile)
-    (assoc tile :conceal-countdown 10)
+    (assoc tile :conceal-countdown 5)
     tile))
 
 (defn check-for-concealment
@@ -85,13 +89,25 @@
     (update-tiles game init-concealment)
     game))
 
+(defn found-all-the-houses? [game]
+  (->> (:tiles game)
+       (remove :matched?)
+       (map :face)
+       (not-any? #{:h1 :h2 :h3 :h4 :h5})))
+
+(defn check-for-completion [game]
+  (if (found-all-the-houses? game)
+    (assoc game :complete-countdown 3)
+    game))
+
 (defn reveal-tile
   [game index]
   (if (can-reveal? game)
     (-> game
         (assoc-in [:tiles index :revealed?] true)
         (check-for-match)
-        (check-for-concealment))
+        (check-for-concealment)
+        (check-for-completion))
     game))
 
 
@@ -119,8 +135,8 @@
   [tile]
   (case (:conceal-countdown tile)
     nil tile
-    5 (-> tile (dissoc :revealed?) (update :conceal-countdown dec))
-    2 (dissoc tile :conceal-countdown)
+    3 (-> tile (dissoc :revealed?) (update :conceal-countdown dec))
+    1 (dissoc tile :conceal-countdown)
     (update tile :conceal-countdown dec)))
 
 (defn count-down-sand
@@ -129,6 +145,27 @@
     (update game :sand #(replace-remaining % [:gone]))
     game))
 
+(defn on-last-round?
+  [game]
+  (= 90 (count (:sand game))))
+
+(defn complete-round
+  [game]
+  (if (on-last-round? game)
+    (assoc game :safe? true)
+    (-> game
+        (update :sand #(concat % (repeat 30 :remaining)))
+        (assoc :tiles (create-board)))))
+
+(defn count-down-completion
+  [game]
+  (case (:complete-countdown game)
+    nil game
+    1 (-> game
+          (dissoc :complete-countdown)
+          (complete-round))
+    (update game :complete-countdown dec)))
+
 (defn tick
   [game]
   (if (not-any? #{:remaining} (:sand game))
@@ -136,4 +173,5 @@
     (-> game
         (update :ticks inc)
         (count-down-sand)
+        (count-down-completion)
         (update-tiles conceal-faces))))

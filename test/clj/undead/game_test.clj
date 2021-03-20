@@ -202,3 +202,63 @@
            (->> (sut/create-game)
                 (tick-n 155)
                 :dead?)))))
+
+(defn reveal-two
+  [face game]
+  (->> game (reveal-one face) (reveal-one face)))
+
+(defn reveal-all-houses
+  [game]
+  (->> game
+       (reveal-two :h1)
+       (reveal-two :h2)
+       (reveal-two :h3)
+       (reveal-two :h4)
+       (reveal-two :h5)))
+
+(deftest getting-out-alive-test
+  (testing "after two ticks we havent closed the game yet"
+    (is (not (->> (sut/create-game)
+                  (reveal-all-houses)
+                  sut/tick
+                  sut/tick
+                  :safe?)))))
+
+(defn- complete-round
+  [n game]
+  (reduce
+   (fn [game _]
+     (->> game
+          (reveal-all-houses)
+          sut/tick sut/tick sut/tick))
+   game
+   (range n)))
+
+
+(deftest complete-rounds-test
+  (testing "after the first round we should have 60 sand"
+    (is (= 60
+           (->> (sut/create-game)
+                (complete-round 1)
+                :sand
+                count))))
+
+  (testing "and the board should be reset"
+    (is (empty?
+         (->> (sut/create-game)
+              (complete-round 1)
+              :tiles
+              (filter :matched?)))))
+
+  (testing "after two complete rounds there should be 90 sands"
+    (is (= 90
+           (->> (sut/create-game)
+                (complete-round 2)
+                :sand
+                count))))
+
+  (testing "after three rounds, you should be safe."
+    (is (= true
+           (->> (sut/create-game)
+                (complete-round 3)
+                :safe?)))))

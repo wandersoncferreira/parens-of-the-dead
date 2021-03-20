@@ -15,6 +15,7 @@
       (loop []
         (when-let [game (:message (<! ws-channel))]
           (rdom/render [components/game-view game ws-channel] container)
-          (if (:dead? game)
-            (set! (.-className (.-body js/document)) "game-over")
-            (recur)))))))
+          (cond
+            (:dead? game) (set! (.-className (.-body js/document)) "game-over")
+            (:safe? game) (set! (.-location js/document) "/safe.html")
+            :else (recur)))))))

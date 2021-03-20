@@ -2,7 +2,8 @@
   (:require [chord.http-kit :as chord]
             [compojure.core :refer [defroutes GET]]
             [compojure.route :refer [resources]]
-            [undead.game-loop :refer [start-game-loop]]))
+            [undead.game-loop :refer [start-game-loop]]
+            [clojure.java.io :as io]))
 
 (defn- ws-handler
   [req]
@@ -11,4 +12,5 @@
 
 (defroutes app
   (GET "/ws" [] ws-handler)
+  (GET "/" [] (slurp (io/resource "public/index.html")))
   (resources "/"))
