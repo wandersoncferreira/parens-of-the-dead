@@ -1,0 +1,14 @@
+{:source-paths
+ ["src/cljs"]
+ 
+ :nrepl
+ {:port 8777
+  :middleware [refactor-nrepl.middleware/wrap-refactor]}
+ 
+ :dependencies [[cider/cider-nrepl "0.25.9"]
+                [refactor-nrepl "2.5.1"]]
+
+ :builds {:undead {:target :browser
+                   :output-dir "resources/public/js"
+                   :asset-path "/js"
+                   :modules {:main {:entries [undead.client]}}}}}
