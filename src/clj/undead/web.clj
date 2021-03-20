@@ -1,13 +1,14 @@
 (ns undead.web
-  (:require [compojure.core :refer [defroutes GET]]
-            [compojure.route :refer [resources]]))
+  (:require [chord.http-kit :as chord]
+            [compojure.core :refer [defroutes GET]]
+            [compojure.route :refer [resources]]
+            [undead.game-loop :refer [start-game-loop]]))
 
-(defn index
+(defn- ws-handler
   [req]
-  {:status 200
-   :headers {"Content-Type" "text/html"}
-   :body "Hello Undead"})
+  (chord/with-channel req ws-channel
+    (start-game-loop ws-channel)))
 
 (defroutes app
-  (GET "/backend" [] index)
+  (GET "/ws" [] ws-handler)
   (resources "/"))
