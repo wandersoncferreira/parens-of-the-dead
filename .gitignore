@@ -3,3 +3,4 @@
 .nrepl-port
 .shadow-cljs/
 resources/public/js
+node_modules/
