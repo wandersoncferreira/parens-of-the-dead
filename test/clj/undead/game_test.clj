@@ -81,6 +81,3 @@
                 :tiles
                 (filter :revealed?)
                 (set))))))
-
-
-

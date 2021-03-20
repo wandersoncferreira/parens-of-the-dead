@@ -24,7 +24,7 @@ To start the frontend from command line (development mode)
   npx shadow-cljs watch undead
 #+end_src
 
-
+The game should be visible at =http://localhost:9009/index.html=
 
 ** Emacs users
 
