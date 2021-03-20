@@ -9,5 +9,5 @@
    :body "Hello Undead"})
 
 (defroutes app
-  (GET "/" [] index)
+  (GET "/backend" [] index)
   (resources "/"))
