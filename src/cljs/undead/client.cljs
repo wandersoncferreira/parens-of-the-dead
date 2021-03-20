@@ -2,7 +2,7 @@
   (:require [reagent.core :as r]
             [reagent.dom :as rdom]))
 
-(def game {:board [{:face :h1} {:face :h1} {:face :h2} {:face :h2 :revealed? true}
+(def game {:tiles [{:face :h1} {:face :h1} {:face :h2} {:face :h2 :revealed? true}
                    {:face :h3} {:face :h3} {:face :h4} {:face :h4}
                    {:face :h5} {:face :h5} {:face :fg} {:face :fg}
                    {:face :zo} {:face :zo} {:face :zo} {:face :gy}]
@@ -11,25 +11,25 @@
            :foggy? false})
 
 (defn cell
-  [cell]
+  [tile]
   [:div {:className "cell"}
    [:div {:className (str "tile"
-                          (when (:revealed? cell) " revealed")
-                          (when (:matched? cell) " revealed"))}
+                          (when (:revealed? tile) " revealed")
+                          (when (:matched? tile) " revealed"))}
     [:div {:className "front"}]
-    [:div {:className (str "back " (name (:face cell)))}]]])
+    [:div {:className (str "back " (name (:face tile)))}]]])
 
 
 (defn line
-  [cells]
+  [tiles]
   [:div {:className "line"}
-   (map cell cells)])
+   (map cell tiles)])
 
 
 (defn board
-  [cells]
+  [tiles]
   [:div {:className "board clearfix"}
-   (map line (partition 4 cells))])
+   (map line (partition 4 tiles))])
 
 (defn timer
   [timer-parameters]
@@ -46,7 +46,7 @@
 (defn game-view
   []
   [:div {:className (when (:foggy? game) "foggy")}
-   [board (:board game)]
+   [board (:tiles game)]
    [timers (:sand game)]])
 
 
