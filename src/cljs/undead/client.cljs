@@ -1,9 +1,8 @@
 (ns undead.client
-  (:require [reagent.core :as r]
+  (:require [chord.client :as chord]
+            [cljs.core.async :refer [<!]]
             [reagent.dom :as rdom]
-            [undead.components :as components]
-            [chord.client :as chord]
-            [cljs.core.async :refer [<!]])
+            [undead.components :as components])
   (:require-macros [cljs.core.async.macros :refer [go]]))
 
 (def container (js/document.getElementById "main"))

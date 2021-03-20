@@ -18,7 +18,7 @@
 
 (defn update-tiles
   [game f]
-  (update-in game [:tiles] #(mapv f %)))
+  (update game :tiles #(mapv f %)))
 
 (defn revealed-tiles
   [game]
@@ -65,7 +65,7 @@
   (case match
     :fg (assoc game :foggy? true)
     :zo (-> game
-            (update-in [:sand] #(replace-remaining % (repeat 3 :zombie)))
+            (update :sand #(replace-remaining % (repeat 3 :zombie)))
             (update-tiles wake-the-dead))
     game))
 
@@ -127,7 +127,7 @@
 (defn prep
   [game]
   (-> game
-      (update-in [:tiles] assoc-ids)
+      (update :tiles assoc-ids)
       (update-tiles hide-faces)))
 
 

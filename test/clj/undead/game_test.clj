@@ -1,6 +1,6 @@
 (ns undead.game-test
-  (:require [undead.game :as sut]
-            [clojure.test :refer [deftest is testing]]))
+  (:require [clojure.test :refer [deftest is testing]]
+            [undead.game :as sut]))
 
 (defn find-face-index
   [game face]

@@ -1,9 +1,9 @@
 (ns undead.web
   (:require [chord.http-kit :as chord]
+            [clojure.java.io :as io]
             [compojure.core :refer [defroutes GET]]
             [compojure.route :refer [resources]]
-            [undead.game-loop :refer [start-game-loop]]
-            [clojure.java.io :as io]))
+            [undead.game-loop :refer [start-game-loop]]))
 
 (defn- ws-handler
   [req]

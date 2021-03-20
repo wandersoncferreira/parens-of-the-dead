@@ -1,7 +1,5 @@
 (ns undead.components
-  (:require [reagent.core :as r]
-            [reagent.dom :as rdom]
-            [cljs.core.async :refer [put!]]))
+  (:require [cljs.core.async :refer [put!]]))
 
 (defn cell
   [tile reveal-ch]

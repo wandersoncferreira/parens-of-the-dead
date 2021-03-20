@@ -22,11 +22,16 @@
     (stop-server (:server this))
     (dissoc this :server)))
 
-(defn create-system
+(defn create-game
   []
   (ParensOfTheDead.))
 
+(defn system
+  []
+  (component/system-map
+   :game (create-game)))
+
 
 (defn -main
-  [& args]
-  (create-system))
+  [& _args]
+  (component/start (system)))
