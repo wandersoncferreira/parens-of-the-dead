@@ -179,3 +179,26 @@
               :tiles
               (map :face)
               frequencies))))
+
+(defn tick-n [n game]
+  (first (drop n (iterate sut/tick game))))
+
+(deftest tick-time-to-die-test
+  (is (= [:gone :remaining]
+        (->> (sut/create-game)
+             (tick-n 5)
+             :sand
+             (take 2))))
+
+  (testing "after 30 seconds all the sand must be gone."
+    (is (= {:gone 30}
+           (->> (sut/create-game)
+                (tick-n 155)
+                :sand
+                frequencies))))
+
+  (testing "after 31 seconds you are dead..."
+    (is (= true
+           (->> (sut/create-game)
+                (tick-n 155)
+                :dead?)))))

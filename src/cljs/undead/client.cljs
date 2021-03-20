@@ -15,4 +15,6 @@
       (loop []
         (when-let [game (:message (<! ws-channel))]
           (rdom/render [components/game-view game ws-channel] container)
-          (recur))))))
+          (if (:dead? game)
+            (set! (.-className (.-body js/document)) "game-over")
+            (recur)))))))
